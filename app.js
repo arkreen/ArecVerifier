@@ -5,7 +5,7 @@ import logger from './log4js.js';
 
 let arg = process.argv.slice(2);
 let tokenId = arg[0];
-let apiToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDVDMzA2RTUyNmU0NUJFMTBiMENDNmZDMTdDYTFEMmY3YUZGQTFmQWMiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjU1NjQ4OTc2NTQsIm5hbWUiOiJ0ZXN0In0.jUr-aoQ6vR3joq-vgO1YwqEgd0JdmghXiFWf48STRXg';
+let apiToken = 'paste-your-token-here';
 const client = new Web3Storage({ token:  apiToken});
 const sleep = (time) => {
     return new Promise(resolve => setTimeout(resolve,time))
@@ -32,7 +32,7 @@ async function main() {
         let provider_app_key = '0ab4ce267db54906802cb43b24e5b0f7'
         let chain_type = 'matic'
         let provider = new InfuraProvider(chain_type, provider_app_key)
-        
+
         let abi =  [
             {
             "inputs": [
@@ -116,7 +116,7 @@ async function main() {
             "type": "function"
           }
         ]
-    
+
         let contract = new Contract(rec_issuance_contract_address, abi, provider);
         let nft_obj_array = await contract.getRECData(tokenId)
         let nft_obj = {
@@ -130,7 +130,7 @@ async function main() {
         {
             throw 'CID is empty in this token ID!'
         }
-    
+
         if(nft_obj.idAsset == 1)
         {
             throw 'This tool does not support to verify this token ID currently!'
@@ -151,7 +151,7 @@ async function main() {
             let count = 1
 
             // Process each file
-            for (let file of files) 
+            for (let file of files)
             {
                 logger.info('Starting to process miner ' + count)
                 logger.info(separator2);
@@ -162,7 +162,7 @@ async function main() {
                 logger.info('The info of miner ' + minerAddress + ' :')
                 logger.info('Url'+paddedTab1+'Date'+paddedTab2+'Energy(Wh)')
 
-                // Get the file cid 
+                // Get the file cid
                 const minerCid =  file.cid
 
                 let fileInfo = null
@@ -177,7 +177,7 @@ async function main() {
                         logger.info('Will try again after 10 seconds...')
                         await sleep(10000);
                     }
-                }     
+                }
 
                 if(fileInfo.ok)
                 {
@@ -191,11 +191,11 @@ async function main() {
                         return str
                     })
                     let infoArray = newArray.map(
-                        s => 
+                        s =>
                         {
                             let json = {
                                 "day": s.substring(0,10),
-                                "cid": s.substring(11) 
+                                "cid": s.substring(11)
                             }
                            return json
                         }
@@ -220,8 +220,8 @@ async function main() {
                         // Get the date of the day before the first day
                         let updateDate = new Date(dayFirst);
                         updateDate.setDate(updateDate.getDate() - 1)
-                        let dateBefore = updateDate.getUTCFullYear() + "-" + (updateDate.getUTCMonth() < 9 ? '0' + (updateDate.getUTCMonth()+1) : (updateDate.getUTCMonth()+1)) + "-" + (updateDate.getUTCDate() < 10 ? '0' + updateDate.getUTCDate() : updateDate.getUTCDate())        
-                        
+                        let dateBefore = updateDate.getUTCFullYear() + "-" + (updateDate.getUTCMonth() < 9 ? '0' + (updateDate.getUTCMonth()+1) : (updateDate.getUTCMonth()+1)) + "-" + (updateDate.getUTCDate() < 10 ? '0' + updateDate.getUTCDate() : updateDate.getUTCDate())
+
                         // Compare the start date of the miner's life cycle and the date of first day for the miner in this AREC
                         if(startDate === dayFirst)
                         {
@@ -270,7 +270,7 @@ async function main() {
                                         if(fileRes.ok)
                                         {
                                             const fileResFiles = await fileRes.files()
-                                    
+
                                             for(let eachFile of fileResFiles)
                                             {
                                                 // Found the miner
@@ -283,13 +283,13 @@ async function main() {
                                                     infoArray.unshift(ele)
                                                     flag = true
                                                     break
-                                                }                                    
+                                                }
                                             }
                                         }
                                         else
                                         {
                                             throw new Error(`failed to get ${cid} - [${fileRes.status}] ${fileRes.statusText}`)
-                                        }   
+                                        }
                                     }
                                 }
                                 else
@@ -304,13 +304,13 @@ async function main() {
                                     let update = new Date(dateBefore);
                                     update.setDate(update.getDate() - 1)
                                     dateBefore = update.getUTCFullYear() + "-" + (update.getUTCMonth() < 9 ? '0' + (update.getUTCMonth()+1) : (update.getUTCMonth()+1)) + "-" + (update.getUTCDate() < 10 ? '0' + update.getUTCDate() : update.getUTCDate())
-                                }                                
+                                }
                             }while(flag == false)
                         }
 
                         for (let i = 0; i < infoArray.length; i++)
                         {
-                            let finalCid = '' 
+                            let finalCid = ''
 
                             if(infoArray[i].cid != '')
                             {
@@ -331,14 +331,14 @@ async function main() {
                                 if(infoArrRes.ok)
                                 {
                                     const infoArrFiles = await infoArrRes.files()
-                                    
+
                                     for(let e of infoArrFiles)
                                     {
                                         if(e.name == minerAddress)
                                         {
                                             finalCid = e.cid
                                             break
-                                        }                                    
+                                        }
                                     }
                                 }
                                 else
@@ -352,9 +352,9 @@ async function main() {
                                 if(i != 0)
                                 {
                                     // No any record for this miner in the current cid
-                                    // So the value of the current day's max energy is equal to the value of the previous day 
+                                    // So the value of the current day's max energy is equal to the value of the previous day
                                     infoArray[i].maxEnergy = infoArray[i-1].maxEnergy
-                                }                                
+                                }
                             }
                             else
                             {
@@ -389,11 +389,11 @@ async function main() {
                                         {
                                             let jsonFile = JSON.parse(s)
                                             return jsonFile.dataList
-                                        }                                    
+                                        }
                                     )
                                     // Sort the array to make sure the elements are sorted by time
                                     dataArray.sort()
-                                
+
                                     // Get the max energy value of the current day
                                     const length1 = dataArray.length
                                     const length2 = dataArray[length1-1].length
@@ -402,11 +402,11 @@ async function main() {
 
                                     if(i != 0)
                                     {
-                                        let dayEnergy = BigInt(0)                                     
+                                        let dayEnergy = BigInt(0)
                                         for(let k = 0; k < dataArray.length; k++)
                                         {
                                             for(let j = 0; j < dataArray[k].length; j++)
-                                            {                                                
+                                            {
                                                 if(j == 0)
                                                 {
                                                     if(k == 0)
@@ -419,21 +419,21 @@ async function main() {
                                                         const len = dataArray[k-1].length
                                                         const increase2 = BigInt('0x' + dataArray[k][j].substring(24)) - BigInt('0x' + dataArray[k-1][len-1].substring(24))
                                                         dayEnergy += increase2
-                                                    }                                           
+                                                    }
                                                 }
                                                 else
                                                 {
                                                     const increase3 = BigInt('0x' + dataArray[k][j].substring(24)) - BigInt('0x' + dataArray[k][j-1].substring(24))
                                                     dayEnergy += increase3
-                                                }                                       
+                                                }
                                             }
                                         }
 
                                         let dayE = dayEnergy/BigInt(1000)
                                         let url = "https://" + finalCid + ".ipfs.w3s.link"
                                         logger.info(''+url+'\t'+infoArray[i].day+'\t'+dayE)
-                                        energy += dayEnergy   
-                                    }                                                                                                                                 
+                                        energy += dayEnergy
+                                    }
                                 }
                                 else
                                 {
@@ -445,7 +445,7 @@ async function main() {
                     else
                     {
                         throw new Error(`failed to get the start date of the miner ${minerAddress}`)
-                    }                    
+                    }
                 }
                 else
                 {
@@ -463,7 +463,7 @@ async function main() {
 
         logger.info('Total energy calculated is '+ energy/BigInt(1000) + ' Wh')
         logger.info('The amount of energy in the AREC token is ' + BigInt(nft_obj.amountREC)/BigInt(1000) + ' Wh')
-        
+
         // Compare the energy calculated and the one in the AREC token
         if(BigInt(nft_obj.amountREC) == energy)
         {
@@ -474,7 +474,7 @@ async function main() {
             logger.info('Done! Verification failed!')
         }
 
-        logger.info(separator1+ '\n')     
+        logger.info(separator1+ '\n')
     }catch(err){
         logger.info('Got error during the verification process!' + ' ' + err)
     }
@@ -486,4 +486,3 @@ main().then(() => process.exit(0)).catch(error => {
     console.error(error);
     process.exit(1);
 });
-
