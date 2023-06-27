@@ -6,3 +6,4 @@ The tool is used to verify the energy in the AREC issued
    ```
    npm install
    ```
+3. Apply one web3.storage API token
