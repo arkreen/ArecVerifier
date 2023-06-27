@@ -23,6 +23,13 @@ const paddedTab2 = tab.padEnd(tabLength2, ' ');
 
 async function main() {
     try{
+        if((tokenId === '') || (typeof tokenId != 'number') || tokenId <= 1)
+        {
+            console.log('USAGE\n  node app.js <tokenid>\n')
+            console.log('ARGUMENTS\n  <tokenid> - AREC token ID number to verify')
+            return
+        }
+
         logger.info('Start to process...')
         logger.info(separator1 + '\n');
         logger.info('Getting the info from the contract by the token ID which is ' + tokenId + ' ...')
