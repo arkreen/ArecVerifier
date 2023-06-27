@@ -160,7 +160,7 @@ async function main() {
                 const minerAddress = file.name
 
                 logger.info('The info of miner ' + minerAddress + ' :')
-                logger.info('Url'+paddedTab1+'Date'+paddedTab2+'Energy(Wh)')
+                logger.info('URL'+paddedTab1+'Date'+paddedTab2+'Energy(Wh)')
 
                 // Get the file cid
                 const minerCid =  file.cid
