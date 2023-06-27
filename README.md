@@ -7,7 +7,7 @@ The tool is used to verify the energy in the AREC issued
    npm install
    ```
 3. Apply one web3.storage API token
-	- Go to web3.storage official webstite (https://web3.storage/login/),you can login with your github account or sign up with your email
+	- Go to web3.storage official webstite (https://web3.storage/login/), you can login with your github account or sign up with your email
 	- After login, place your mouse in "ACCOUNT" and click "Create an API Token" in the drop-down list
 	- Name your token and create
 4. Paste your token in variable 'apiToken' which is in line 8 of app.js
