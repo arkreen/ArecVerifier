@@ -5,7 +5,7 @@ import logger from './log4js.js';
 
 let arg = process.argv.slice(2);
 let tokenId = arg[0];
-let apiToken = 'paste-your-token-here';
+let apiToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDVDMzA2RTUyNmU0NUJFMTBiMENDNmZDMTdDYTFEMmY3YUZGQTFmQWMiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjU1NjQ4OTc2NTQsIm5hbWUiOiJ0ZXN0In0.jUr-aoQ6vR3joq-vgO1YwqEgd0JdmghXiFWf48STRXg';
 const client = new Web3Storage({ token:  apiToken});
 const sleep = (time) => {
     return new Promise(resolve => setTimeout(resolve,time))
@@ -24,7 +24,7 @@ const paddedTab2 = tab.padEnd(tabLength2, ' ');
 async function main() {
     try{
         logger.info('Start to process...')
-        logger.info(separator1);
+        logger.info(separator1 + '\n');
         logger.info('Getting the info from the contract by the token ID which is ' + tokenId + ' ...')
 
         // Get the cid and other info from the contract by the token ID
@@ -144,9 +144,9 @@ async function main() {
         if (info.ok)
         {
             const files = await info.files();
-            logger.info(separator1);
+            logger.info(separator1+ '\n');
             logger.info('There are in total ' + files.length + ' miners!')
-            logger.info(separator1);
+            logger.info(separator1+ '\n');
 
             let count = 1
 
@@ -453,7 +453,7 @@ async function main() {
                 }
 
                 count += 1
-                logger.info(separator1)
+                logger.info(separator1+ '\n')
             }
         }
         else
@@ -474,7 +474,7 @@ async function main() {
             logger.info('Done! Verification failed!')
         }
 
-        logger.info(separator1)     
+        logger.info(separator1+ '\n')     
     }catch(err){
         logger.info('Got error during the verification process!' + ' ' + err)
     }
