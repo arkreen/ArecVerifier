@@ -23,11 +23,15 @@ const paddedTab2 = tab.padEnd(tabLength2, ' ');
 
 async function main() {
     try{
-        if((tokenId === '') || (typeof tokenId != 'number') || tokenId <= 1)
+        if(tokenId === '')
         {
             console.log('USAGE\n  node app.js <tokenid>\n')
             console.log('ARGUMENTS\n  <tokenid> - AREC token ID number to verify')
             return
+        }
+        if((typeof tokenId != 'number') || tokenId <= 1)
+        {
+            console.log('Error: invalid token ID number!')
         }
 
         logger.info('Start to process...')
