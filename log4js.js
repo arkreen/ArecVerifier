@@ -16,8 +16,7 @@ const options ={
             layout: {
                 type: 'messagePassThrough',
             },
-            keepFileExt:true,
-            numBackups: 7
+            keepFileExt:true
         },
         console: {
             type: "console",
