@@ -16,12 +16,12 @@ The tool is used to verify the energy in the AREC issued
    ```
 5. Check your AREC token ID number
    - Go to AREC Dapp (https://arec.arkreen.com/#/mode), and choose 'Normal Release Mode'
-   - Click 'Overview' and then 'My Profile'. Under the 'AREC NFT List', it will list all your AREC NFT you have issued. In the first column, you can see the number in the suffix, which is the AREC token ID. For example: 'AREC_0006', then the token ID is 6
+   - Click 'Overview' and then 'My Profile'. Under the 'AREC NFT List', it will list all your AREC NFT you have issued. In the first column, you can see the number in the suffix, which is the AREC token ID. For example: 'AREC_0005', then the token ID is 5
 
 6. Use node to run app.js, the version of the node should be at least v12.0.0 and above. There is only one input paramater, which is the token ID number. For example:
   
    ```
-   node app.js 6
+   node app.js 5
    ```
 7. You can see the output in the console, which will show all the miners' info, which include the miner address, url, date, energy, final result (verification succeed or fail) and so on. Also, there will be a log file named 'report' generated, which is in 'report' folder. Please note that, when you look at the content of the report, please use monospaced fonts.
    
